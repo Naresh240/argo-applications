@@ -15,8 +15,9 @@ spec:
           repository: "hashicorp/vault-k8s"
           tag: "0.2.0"
         server:
-          type: ClusterIP
-          port: 80
+          service:
+            type: ClusterIP
+            port: 80
           dataStorage:
             size: 1Gi
             storageClass: ebs-csi-default-sc
