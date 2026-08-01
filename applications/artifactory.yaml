@@ -18,25 +18,13 @@ spec:
           joinKeySecretName: artifactory-mandatory-keys
 
         artifactory:
-          persistence:
-            enabled: true
-            type: pvc
-            size: 2Gi
-            storageClassName: ebs-csi-default-sc
+          replicaCount: 1
 
         postgresql:
-          enabled: true
-          primary:
-            persistence:
-              enabled: true
-              size: 1Gi
-              storageClass: ebs-csi-default-sc
+          enabled: false
 
         nginx:
           enabled: false
-
-        rtfs:
-          enabled: true
 
         service:
           type: ClusterIP
