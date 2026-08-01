@@ -1,0 +1,36 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+
+metadata:
+  name: artifactory-docker-secret
+  namespace: argocd
+
+spec:
+  refreshInterval: 1h
+
+  secretStoreRef:
+    name: vault-secret-store-1
+    kind: SecretStore
+
+  target:
+    name: artifactory-docker-secret
+    creationPolicy: Owner
+    template:
+      type: kubernetes.io/dockerconfigjson
+      data:
+        .dockerconfigjson: |
+          {
+            "auths": {
+              "artifactory.awsdevopstrainers.info": {
+                "username": "admin",
+                "password": "{{ .artifactoryToken }}",
+                "auth": "{{ printf "admin:%s" .artifactoryToken | b64enc }}"
+              }
+            }
+          }
+
+  data:
+    - secretKey: artifactoryToken
+      remoteRef:
+        key: artifactory-secret
+        property: artifactory-token

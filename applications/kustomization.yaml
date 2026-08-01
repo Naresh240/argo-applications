@@ -12,3 +12,4 @@ resources:
 
   # pull secrets
   - secret-store.yaml
+  - externalcluster.yaml
