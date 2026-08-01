@@ -17,7 +17,7 @@ spec:
           persistence:
             enabled: true
             type: pvc
-            size: 20Gi
+            size: 2Gi
             storageClassName: ebs-csi-default-sc
 
         postgresql:
