@@ -22,7 +22,7 @@ spec:
           replicaCount: 1
           startupProbe:
             enabled: true
-            failureThreshold: 60
+            failureThreshold: 300
             periodSeconds: 10
             timeoutSeconds: 5
 
