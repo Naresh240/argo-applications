@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: artifactory-app
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://charts.jfrog.io
+    chart: artifactory
+    targetRevision: 107.84.5
+    helm:
+      values: |
+        artifactory:
+          persistence:
+            enabled: true
+            type: pvc
+            size: 20Gi
+            storageClassName: ebs-csi-default-sc
+
+        postgresql:
+          enabled: true
+          persistence:
+            enabled: true
+            size: 10Gi
+            storageClassName: ebs-csi-default-sc
+
+        nginx:
+          enabled: false
+
+        service:
+          type: ClusterIP
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: artifactory
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true

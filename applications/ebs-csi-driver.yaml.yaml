@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: aws-ebs-csi-driver
+  name: aws-ebs-csi-driver-app
   namespace: argocd
 
 spec:
