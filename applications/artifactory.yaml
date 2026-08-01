@@ -13,6 +13,9 @@ spec:
     targetRevision: 107.161.15
     helm:
       values: |
+        global:
+          masterKeySecretName: artifactory-mandatory-keys
+          joinKeySecretName: artifactory-mandatory-keys
         artifactory:
           persistence:
             enabled: true
