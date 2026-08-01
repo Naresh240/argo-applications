@@ -20,7 +20,7 @@ spec:
         server:
           dataStorage:
             size: 1Gi
-            storageClass: gp2
+            storageClass: ebs-csi-default-sc
           standalone:
             enabled: true
 
