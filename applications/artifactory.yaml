@@ -59,7 +59,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: artifactory
+    namespace: argocd
 
   syncPolicy:
     automated:
