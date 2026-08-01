@@ -16,7 +16,13 @@ spec:
           tag: "0.2.0"
         service:
           type: ClusterIP
-          port: 80   
+          port: 80
+        server:
+          dataStorage:
+            enabled: true
+            size: 1Gi
+            storageClass: gp2
+
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: argocd
