@@ -13,6 +13,8 @@ spec:
     targetRevision: v2.36.0
     helm:
       values: |
+        defaultStorageClass:
+          enabled: true
         controller:
           serviceAccount:
             create: true
