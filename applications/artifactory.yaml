@@ -16,7 +16,8 @@ spec:
         global:
           masterKeySecretName: artifactory-mandatory-keys
           joinKeySecretName: artifactory-mandatory-keys
-
+        router:
+          joinKeySecretName: artifactory-mandatory-keys
         artifactory:
           replicaCount: 1
           resources:
