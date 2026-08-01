@@ -16,18 +16,20 @@ spec:
         global:
           masterKeySecretName: artifactory-mandatory-keys
           joinKeySecretName: artifactory-mandatory-keys
+
         artifactory:
           persistence:
             enabled: true
             type: pvc
-            size: 2Gi
+            size: 20Gi
             storageClassName: ebs-csi-default-sc
 
         postgresql:
+          enabled: true
           primary:
             persistence:
               enabled: true
-              size: 1Gi
+              size: 10Gi
               storageClass: ebs-csi-default-sc
 
         nginx:
@@ -35,7 +37,6 @@ spec:
 
         service:
           type: ClusterIP
-
   destination:
     server: https://kubernetes.default.svc
     namespace: artifactory
