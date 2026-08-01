@@ -9,3 +9,6 @@ resources:
   - vault.yaml
   - artifactory.yaml
   - external-secrets.yaml
+
+  # pull secrets
+  - secret-store.yaml
