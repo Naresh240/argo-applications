@@ -36,7 +36,7 @@ spec:
             name: vault-app
             port:
               number: 8200
-  - host: artifactory.awsdevopstrainers.info
+  - host: "artifactory.awsdevopstrainers.info"
     http:
       paths:
       - path: /
@@ -45,4 +45,4 @@ spec:
           service:
             name: artifactory
             port:
-              number: 8081
+              number: 8082
