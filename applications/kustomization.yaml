@@ -7,3 +7,4 @@ resources:
   - ebs-csi-driver.yaml.yaml
   - external-dns.yaml
   - vault.yaml
+  - artifactory.yaml
