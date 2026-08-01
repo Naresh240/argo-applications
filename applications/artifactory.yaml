@@ -28,28 +28,15 @@ spec:
             limits:
               cpu: 4
               memory: 8Gi
-          startupProbe:
-            initialDelaySeconds: 120
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 10
 
           persistence:
             enabled: true
             type: file-system
             size: 20Gi
             storageClassName: ebs-csi-default-sc
-            binarystoreXml: |
-              <!-- File system filestore -->
-              <config version="v1">
-                <chain>
-                  <provider id="file-system" type="file-system"/>
-                </chain>
-              </config>
 
         postgresql:
           enabled: true
-
           primary:
             persistence:
               enabled: true
