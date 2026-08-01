@@ -21,11 +21,11 @@ spec:
             storageClassName: ebs-csi-default-sc
 
         postgresql:
-          enabled: true
-          persistence:
-            enabled: true
-            size: 10Gi
-            storageClassName: ebs-csi-default-sc
+          primary:
+            persistence:
+              enabled: true
+              size: 1Gi
+              storageClass: ebs-csi-default-sc
 
         nginx:
           enabled: false
