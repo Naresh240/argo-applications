@@ -44,6 +44,9 @@ spec:
         nginx:
           enabled: false
 
+        rtfs:
+          enabled: true
+
         service:
           type: ClusterIP
   destination:
