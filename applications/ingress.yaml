@@ -26,3 +26,10 @@ spec:
             name: argocd-server
             port:
               number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vault-app
+            port:
+              number: 80
