@@ -26,6 +26,9 @@ spec:
             name: argocd-server
             port:
               number: 80
+  - host: "vault.awsdevopstrainers.info"
+    http:
+      paths:
       - path: /
         pathType: Prefix
         backend:
