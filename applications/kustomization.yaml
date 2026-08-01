@@ -4,5 +4,6 @@ kind: Kustomization
 
 resources:
   - ingress.yaml
+  - ebs-csi-driver.yaml.yaml
   - external-dns.yaml
   - vault.yaml
