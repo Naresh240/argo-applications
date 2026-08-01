@@ -11,6 +11,10 @@ spec:
     targetRevision: 1.21.1
     helm:
       values: |
+        provider: aws
+        env:
+          - name: AWS_DEFAULT_REGION
+            value: us-east-1
         image:
           repository: registry.k8s.io/external-dns/external-dns
         domainFilters:
