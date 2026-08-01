@@ -11,32 +11,16 @@ spec:
     repoURL: https://charts.jfrog.io
     chart: artifactory
     targetRevision: 107.161.15
+
     helm:
       values: |
         global:
           masterKeySecretName: artifactory-mandatory-keys
           joinKeySecretName: artifactory-mandatory-keys
-        router:
-          joinKeySecretName: artifactory-mandatory-keys
+
         artifactory:
           replicaCount: 1
-          startupProbe:
-            enabled: true
-            failureThreshold: 300
-            periodSeconds: 10
-            timeoutSeconds: 5
 
-          readinessProbe:
-            enabled: true
-            failureThreshold: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-
-          livenessProbe:
-            enabled: true
-            failureThreshold: 6
-            periodSeconds: 30
-            timeoutSeconds: 5
           resources:
             requests:
               cpu: 2
@@ -44,6 +28,7 @@ spec:
             limits:
               cpu: 4
               memory: 8Gi
+
           persistence:
             enabled: true
             type: pvc
@@ -64,6 +49,7 @@ spec:
 
         service:
           type: ClusterIP
+
   destination:
     server: https://kubernetes.default.svc
     namespace: artifactory
