@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://charts.jfrog.io
     chart: artifactory
-    targetRevision: 107.84.5
+    targetRevision: 107.161.15
     helm:
       values: |
         artifactory:
