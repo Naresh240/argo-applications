@@ -17,7 +17,6 @@ spec:
         service:
           type: ClusterIP
           port: 80
-        server:
           dataStorage:
             enabled: true
             size: 1Gi
