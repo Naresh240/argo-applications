@@ -8,3 +8,4 @@ resources:
   - external-dns.yaml
   - vault.yaml
   - artifactory.yaml
+  - external-secrets.yaml
