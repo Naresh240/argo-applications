@@ -19,3 +19,4 @@ resources:
   - vault/vault-connection.yaml
   - vault/vault-auth.yaml
   - vault/vault-static-secret.yaml
+  - vault/vault-dynamic-secret.yaml
