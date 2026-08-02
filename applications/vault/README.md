@@ -4,63 +4,7 @@
 
 This architecture ensures that Kubernetes applications receive **short-lived Artifactory access tokens** while the **long-lived administrator/service token remains securely stored in Vault**.
 
-```mermaid
-┌──────────────────────────── JFrog Platform ─────────────────────────────┐
-│                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────┐   │
-│  │                  JFrog Artifactory / Access Service              │   │
-│  │                                                                  │   │
-│  │  Long-lived Service/Admin Token                                  │   │
-│  │                                                                  │   │
-│  │  POST /access/api/v1/tokens                                      │   │
-│  │      │                                                           │   │
-│  │      ▼                                                           │   │
-│  │  Generates Short-lived Token (TTL = 1 Hour)                      │   │
-│  └──────────────────────────────────────────────────────────────────┘   │
-└───────────────────────────────▲──────────────────────────────────────────┘
-                                │ HTTPS
-                                │
-                                │
-┌────────────────────────── HashiCorp Vault ───────────────────────────────┐
-│                                                                          │
-│  Kubernetes Auth                                                         │
-│                                                                          │
-│        ▲                                                                 │
-│        │ Login using ServiceAccount                                      │
-│        │                                                                 │
-│  ┌──────────────────────────────────────────────────────────────┐        │
-│  │           Artifactory Secret Engine / Plugin                 │        │
-│  │                                                              │        │
-│  │  Stores Admin Token                                          │        │
-│  │                                                              │        │
-│  │  Calls JFrog Access Token API                                │────────┘
-│  │                                                              │
-│  │  Returns                                                     │
-│  │      access_token                                            │
-│  │      lease_duration                                          │
-│  │      renewable                                               │
-│  └──────────────────────────────────────────────────────────────┘
-│
-└──────────────────────────────▲───────────────────────────────────────────┘
-                               │
-                               │ Vault API
-                               │
-┌──────────────────────────── Kubernetes ──────────────────────────────────┐
-│                                                                          │
-│  Vault Secrets Operator                                                  │
-│                                                                          │
-│  VaultDynamicSecret                                                      │
-│         │                                                                │
-│         ▼                                                                │
-│  Creates Kubernetes Secret                                               │
-│         │                                                                │
-│         ▼                                                                │
-│  Application Pod                                                         │
-│         │                                                                │
-│         ▼                                                                │
-│  Uses Artifactory Token                                                  │
-└──────────────────────────────────────────────────────────────────────────┘
-```
+![alt text](image.png)
 
 ## Authentication Flow
 
