@@ -4,7 +4,7 @@
 
 This architecture ensures that Kubernetes applications receive **short-lived Artifactory access tokens** while the **long-lived administrator/service token remains securely stored in Vault**.
 
-![alt text](image.png)
+![architecture](./image.png)
 
 ## Authentication Flow
 
