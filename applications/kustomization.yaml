@@ -15,4 +15,7 @@ resources:
   - externalcluster.yaml
 
   # vault secret operator
-  - vault-secret-operator.yaml
+  - vault/vault-secret-operator.yaml
+  - vault/vault-connection.yaml
+  - vault/vault-auth.yaml
+  - vault/vault-static-secret.yaml

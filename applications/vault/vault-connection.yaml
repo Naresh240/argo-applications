@@ -1,0 +1,6 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: vault
+spec:
+  address: https://vault.awsdevopstrainers.info/
