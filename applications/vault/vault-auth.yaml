@@ -1,8 +1,8 @@
----
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: default
+
 spec:
   vaultConnectionRef: vault
   method: kubernetes

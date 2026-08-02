@@ -3,4 +3,4 @@ kind: VaultConnection
 metadata:
   name: vault
 spec:
-  address: https://vault.awsdevopstrainers.info/
+  address: https://vault.awsdevopstrainers.info
