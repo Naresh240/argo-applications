@@ -4,19 +4,25 @@ kind: Kustomization
 
 resources:
   - ingress.yaml
-  - ebs-csi-driver.yaml.yaml
-  - external-dns.yaml
-  - vault.yaml
-  - artifactory.yaml
-  - external-secrets.yaml
+  # ebs csi driver
+  - ebs-csi-driver/ebs-csi-driver-app.yaml
 
-  # pull secrets
+  # external dns
+  - external-dns/external-dns-app.yaml
+
+  # artifactory
+  - artifactory/artifactory-app.yaml
+
+  # external secret operator
+  - external-secret-operator/external-secrets-app.yaml
   - external-secret-operator/external-secrets-operator.yaml
   - external-secret-operator/dynamic-secret-pull.yaml
 
+  # vault
+  - vault/vault-app.yaml
+
   # vault secret operator
-  - vault/vault-secret-operator.yaml
-  - vault/vault-connection.yaml
-  - vault/vault-auth.yaml
-  - vault/vault-static-secret.yaml
-  - vault/vault-dynamic-secret.yaml
+  - vault-secret-operator/vault-secret-operator-app.yaml
+  - vault-secret-operator/vault-connection.yaml
+  - vault-secret-operator/vault-auth.yaml
+  - vault-secret-operator/vault-static-secret.yaml
