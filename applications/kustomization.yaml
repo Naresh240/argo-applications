@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ingress.yaml
+
   # ebs csi driver
   - ebs-csi-driver/ebs-csi-driver-app.yaml
 
@@ -23,6 +24,4 @@ resources:
 
   # vault secret operator
   - vault-secret-operator/vault-secret-operator-app.yaml
-  - vault-secret-operator/vault-connection.yaml
-  - vault-secret-operator/vault-auth.yaml
-  - vault-secret-operator/vault-static-secret.yaml
+  - vault-secret-operator/dynamic-secret-pull.yaml
