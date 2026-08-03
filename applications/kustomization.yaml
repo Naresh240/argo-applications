@@ -11,8 +11,8 @@ resources:
   - external-secrets.yaml
 
   # pull secrets
-  - secret-store.yaml
-  - externalcluster.yaml
+  - external-secret-operator/external-secrets-operator.yaml
+  - external-secret-operator/dynamic-secret-pull.yaml
 
   # vault secret operator
   - vault/vault-secret-operator.yaml
