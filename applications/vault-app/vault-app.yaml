@@ -27,16 +27,3 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: argocd
-  ignoreDifferences:
-    - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
-      jqPathExpressions:
-        - '.webhooks[].clientConfig.caBundle'
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-      - PrunePropagationPolicy=foreground
-
-    automated:
-      prune: true
-      selfHeal: true
