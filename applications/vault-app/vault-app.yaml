@@ -15,37 +15,43 @@ spec:
     helm:
       values: |
         server:
-          extraVolumes:
-            - name: plugins
-              emptyDir: {}
-          extraVolumeMounts:
-            - name: plugins
-              mountPath: /vault/plugins
-          extraInitContainers:
-            - name: install-plugin
-              image: curlimages/curl:8.8.0
-              command:
-                - sh
-                - -c
-                - |
-                    curl -L https://github.com/jfrog/vault-plugin-secrets-artifactory/releases/download/v1.8.9/artifactory-secrets-plugin_1.8.9_linux_amd64 \
-                      -o /vault/plugins/artifactory-secrets-plugin
-                    chmod +x /vault/plugins/artifactory-secrets-plugin
-              volumeMounts:
-                - name: plugins
-                  mountPath: /vault/plugins
           standalone:
+            enabled: true
             config: |
+              ui = true
+
               listener "tcp" {
                 address = "0.0.0.0:8200"
                 tls_disable = 1
               }
-              storage "file" {
-                path="/vault/data"
-              }
-              plugin_directory="/vault/plugins"
-              ui=true
 
+              storage "file" {
+                path = "/vault/data"
+              }
+
+              plugin_directory = "/vault/plugins"
+
+          volumes:
+            - name: plugins
+              emptyDir: {}
+
+          volumeMounts:
+            - name: plugins
+              mountPath: /vault/plugins
+
+          extraInitContainers:
+            - name: install-plugin
+              image: curlimages/curl:8.8.0
+              command:
+                - /bin/sh
+                - -ec
+                - |
+                  curl -L -o /vault/plugins/artifactory-secrets-plugin \
+                    https://github.com/jfrog/vault-plugin-secrets-artifactory/releases/download/v1.8.9/artifactory-secrets-plugin_1.8.9_linux_amd64
+                  chmod +x /vault/plugins/artifactory-secrets-plugin
+              volumeMounts:
+                - name: plugins
+                  mountPath: /vault/plugins
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
