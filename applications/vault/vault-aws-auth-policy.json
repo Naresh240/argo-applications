@@ -1,0 +1,16 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VaultAWSAuth",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:GetUser",
+        "iam:GetInstanceProfile",
+        "sts:GetCallerIdentity"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

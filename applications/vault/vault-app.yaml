@@ -20,6 +20,9 @@ spec:
             storageClass: ebs-csi-default-sc
           standalone:
             enabled: true
+          serviceAccount:
+            annotations:
+              eks.amazonaws.com/role-arn: arn:aws:iam::042105353901:role/Vault-Role
 
   destination:
     server: 'https://kubernetes.default.svc'
