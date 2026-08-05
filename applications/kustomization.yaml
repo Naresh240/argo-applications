@@ -8,8 +8,8 @@ resources:
   # ebs csi driver
   - ebs-csi-driver/ebs-csi-driver-app.yaml
 
-  # # external dns
-  # - external-dns/external-dns-app.yaml
+  # external dns
+  - external-dns/external-dns-app.yaml
 
   # # artifactory
   # - artifactory/artifactory-app.yaml
