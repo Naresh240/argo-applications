@@ -9,7 +9,7 @@
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.us-east-1.amazonaws.com/id/C343FBC00C3225824C3F7233D021E011:sub": "system:serviceaccount:external-secrets:external-secrets",
+          "oidc.eks.us-east-1.amazonaws.com/id/C343FBC00C3225824C3F7233D021E011:sub": "system:serviceaccount:argocd:external-secrets",
           "oidc.eks.us-east-1.amazonaws.com/id/C343FBC00C3225824C3F7233D021E011:aud": "sts.amazonaws.com"
         }
       }
