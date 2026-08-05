@@ -3,55 +3,40 @@ kind: Application
 metadata:
   name: vault-app
   namespace: argocd
-
 spec:
-  project: default
-
+  project: default     
   source:
-    repoURL: https://helm.releases.hashicorp.com
     chart: vault
+    repoURL: https://helm.releases.hashicorp.com/
     targetRevision: 0.34.0
-
     helm:
       values: |
+        image:
+          repository: "hashicorp/vault-k8s"
+          tag: "0.2.0"
         server:
+          dataStorage:
+            size: 1Gi
+            storageClass: ebs-csi-default-sc
           standalone:
             enabled: true
-            config: |
-              ui = true
+          serviceAccount:
+            annotations:
+              eks.amazonaws.com/role-arn: arn:aws:iam::042105353901:role/Vault-Role
 
-              listener "tcp" {
-                address = "0.0.0.0:8200"
-                tls_disable = 1
-              }
-
-              storage "file" {
-                path = "/vault/data"
-              }
-
-              plugin_directory = "/vault/plugins"
-
-          volumes:
-            - name: plugins
-              emptyDir: {}
-
-          volumeMounts:
-            - name: plugins
-              mountPath: /vault/plugins
-
-          extraInitContainers:
-            - name: install-plugin
-              image: curlimages/curl:8.8.0
-              command:
-                - /bin/sh
-                - -ec
-                - |
-                  curl -L -o /vault/plugins/artifactory-secrets-plugin \
-                    https://github.com/jfrog/vault-plugin-secrets-artifactory/releases/download/v1.8.9/artifactory-secrets-plugin_1.8.9_linux_amd64
-                  chmod +x /vault/plugins/artifactory-secrets-plugin
-              volumeMounts:
-                - name: plugins
-                  mountPath: /vault/plugins
   destination:
-    server: https://kubernetes.default.svc
+    server: 'https://kubernetes.default.svc'
     namespace: argocd
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[].clientConfig.caBundle'
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+
+    automated:
+      prune: true
+      selfHeal: true
