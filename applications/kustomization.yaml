@@ -15,8 +15,7 @@ resources:
   - artifactory/artifactory-app.yaml
 
   # external secret operator
-  - external-secret-operator/external-secrets-app.yaml
-  # - external-secret-operator/external-secrets-operator.yaml
+  - external-secret-operator/external-secrets-operator.yaml
   # - external-secret-operator/dynamic-secret-pull.yaml
 
   # vault
