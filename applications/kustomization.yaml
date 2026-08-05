@@ -11,8 +11,8 @@ resources:
   # external dns
   - external-dns/external-dns-app.yaml
 
-  # # artifactory
-  # - artifactory/artifactory-app.yaml
+  # artifactory
+  - artifactory/artifactory-app.yaml
 
   # # external secret operator
   # - external-secret-operator/external-secrets-app.yaml
