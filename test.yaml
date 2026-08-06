@@ -1,0 +1,73 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com/
+    targetRevision: 0.34.0
+    helm:
+      values: |
+        image:
+          repository: "hashicorp/vault-k8s"
+          tag: "0.2.0"
+        server:
+          dataStorage:
+            size: 1Gi
+            storageClass: ebs-csi-default-sc
+          standalone:
+            enabled: true
+            config: |                               # <-- added (overriding config = must include the WHOLE thing)
+              ui = true
+              listener "tcp" {
+                tls_disable     = 1
+                address         = "[::]:8200"
+                cluster_address = "[::]:8201"
+              }
+              storage "file" {
+                path = "/vault/data"
+              }
+              plugin_directory = "/vault/plugins"    # <-- the key line
+              api_addr         = "http://127.0.0.1:8200"
+          serviceAccount:
+            annotations:
+              eks.amazonaws.com/role-arn: arn:aws:iam::042105353901:role/Vault-Role
+          volumes:                                   # <-- added: scratch dir shared with init container
+            - name: plugins
+              emptyDir: {}
+          volumeMounts:                              # <-- added: mount into vault server container
+            - name: plugins
+              mountPath: /vault/plugins
+          extraInitContainers:                       # <-- added: fetch the plugin before Vault starts
+            - name: fetch-artifactory-plugin
+              image: curlimages/curl:8.10.1
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -e
+                  V=1.8.9
+                  curl -fsSL -o /vault/plugins/artifactory \
+                    https://github.com/jfrog/vault-plugin-secrets-artifactory/releases/download/v${V}/artifactory-secrets-plugin_${V}_linux_amd64
+                  chmod 755 /vault/plugins/artifactory
+                  chmod 755 /vault/plugins
+              volumeMounts:
+                - name: plugins
+                  mountPath: /vault/plugins
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[].clientConfig.caBundle'
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+    automated:
+      prune: true
+      selfHeal: true
