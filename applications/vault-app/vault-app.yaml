@@ -51,8 +51,7 @@ spec:
                   V=1.8.9
                   curl -fsSL -o /vault/plugins/artifactory \
                     https://github.com/jfrog/vault-plugin-secrets-artifactory/releases/download/v${V}/artifactory-secrets-plugin_${V}_linux_amd64
-                  chmod 755 /vault/plugins/artifactory
-                  chmod 755 /vault/plugins
+                  chmod +x /vault/plugins/artifactory
               volumeMounts:
                 - name: plugins
                   mountPath: /vault/plugins
