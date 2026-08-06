@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-app
+  namespace: argocd
+spec:
+  project: default     
+  source:
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com/
+    targetRevision: 0.34.0
+    helm:
+      values: |
+        image:
+          repository: "hashicorp/vault-k8s"
+          tag: "0.2.0"
+        server:
+          dataStorage:
+            size: 1Gi
+            storageClass: ebs-csi-default-sc
+          standalone:
+            enabled: true
+          serviceAccount:
+            annotations:
+              eks.amazonaws.com/role-arn: arn:aws:iam::042105353901:role/Vault-Role
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[].clientConfig.caBundle'
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+
+    automated:
+      prune: true
+      selfHeal: true
