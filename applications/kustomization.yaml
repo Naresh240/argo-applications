@@ -7,10 +7,10 @@ resources:
 
   # Applications
   - external-dns/external-dns-app.yaml
-  - external-secret-operator/external-secrets-operator.yaml
-  - ebs-csi-driver/ebs-csi-driver-app.yaml  # Need to create IRSA First before enable it
-  - artifactory/artifactory-app.yaml        # Its depending on ebs-csi-driver
-  - vault-app/vault-app.yaml                    # Here we need to connect pod and run commands which are there in Readme file
+  # - external-secret-operator/external-secrets-operator.yaml
+  # - ebs-csi-driver/ebs-csi-driver-app.yaml  # Need to create IRSA First before enable it
+  # - artifactory/artifactory-app.yaml        # Its depending on ebs-csi-driver
+  # - vault-app/vault-app.yaml                    # Here we need to connect pod and run commands which are there in Readme file
 
   # - external-secret-operator/dynamic-secret-pull.yaml
   

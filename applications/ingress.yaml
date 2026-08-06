@@ -26,42 +26,42 @@ spec:
             name: argo-cd-argocd-server
             port:
               number: 80
-  - host: "vault.awsdevopstrainers.info"
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: vault-app
-            port:
-              number: 8200
+#   - host: "vault.awsdevopstrainers.info"
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: vault-app
+#             port:
+#               number: 8200
 
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: artifactory-ingress
-  namespace: artifactory
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:042105353901:certificate/d1e045e8-d380-4d46-b194-d074359c3142
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/backend-protocol: HTTP
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
-    alb.ingress.kubernetes.io/healthcheck-path: /healthz
-    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
-spec:
-  rules:
-  - host: "artifactory.awsdevopstrainers.info"
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: artifactory
-            port:
-              number: 8082
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: artifactory-ingress
+#   namespace: artifactory
+#   annotations:
+#     kubernetes.io/ingress.class: alb
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+#     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:042105353901:certificate/d1e045e8-d380-4d46-b194-d074359c3142
+#     alb.ingress.kubernetes.io/target-type: ip
+#     alb.ingress.kubernetes.io/backend-protocol: HTTP
+#     alb.ingress.kubernetes.io/ssl-redirect: '443'
+#     alb.ingress.kubernetes.io/healthcheck-path: /healthz
+#     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+# spec:
+#   rules:
+#   - host: "artifactory.awsdevopstrainers.info"
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: artifactory
+#             port:
+#               number: 8082
